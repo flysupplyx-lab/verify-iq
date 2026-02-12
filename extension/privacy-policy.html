@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VerifyIQ Privacy Policy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #0a0a0f;
+            color: #e8e8ef;
+            line-height: 1.8;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #4f7df9, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .date {
+            font-size: 13px;
+            color: #8888a0;
+            margin-bottom: 32px;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 28px 0 12px;
+            color: #e8e8ef;
+        }
+
+        p,
+        li {
+            font-size: 14px;
+            color: #a0a0b8;
+            margin-bottom: 12px;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 6px;
+        }
+
+        a {
+            color: #4f7df9;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .highlight {
+            background: rgba(79, 125, 249, 0.08);
+            border: 1px solid rgba(79, 125, 249, 0.2);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+
+        .highlight p {
+            color: #c8c8d8;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>VerifyIQ Privacy Policy</h1>
+        <p class="date">Last updated: February 11, 2026</p>
+
+        <div class="highlight">
+            <p><strong>TL;DR:</strong> VerifyIQ does not collect, store, or sell any personal data. All analysis happens
+                in real-time and results are returned immediately. Nothing is logged or retained.</p>
+        </div>
+
+        <h2>1. Information We Process</h2>
+        <p>VerifyIQ processes the following data <strong>only when you explicitly submit it</strong>:</p>
+        <ul>
+            <li><strong>Email addresses</strong> — sent to our API for verification when you click "Verify"</li>
+            <li><strong>Text content</strong> — sent to our API for AI detection when you click "Analyze"</li>
+        </ul>
+
+        <h2>2. How We Use Your Data</h2>
+        <p>Data is processed in real-time to return verification/detection results. We do <strong>not</strong>:</p>
+        <ul>
+            <li>Store or log submitted emails or text</li>
+            <li>Track your browsing activity</li>
+            <li>Collect analytics or usage data</li>
+            <li>Share data with third parties</li>
+            <li>Use data for advertising</li>
+        </ul>
+
+        <h2>3. Data Storage</h2>
+        <p>The extension stores the following locally on your device via <code>chrome.storage.local</code>:</p>
+        <ul>
+            <li>Your API server URL (default: localhost)</li>
+            <li>Your API key (if you have one)</li>
+        </ul>
+        <p>This data never leaves your device and is only used to connect to the API.</p>
+
+        <h2>4. Permissions</h2>
+        <p>The extension requests the following Chrome permissions:</p>
+        <ul>
+            <li><strong>activeTab</strong> — to read selected text on the current page when you right-click</li>
+            <li><strong>storage</strong> — to save your API URL and key locally</li>
+            <li><strong>contextMenus</strong> — to add right-click menu options</li>
+            <li><strong>scripting</strong> — to detect selected text when the popup opens</li>
+        </ul>
+
+        <h2>5. Third-Party Services</h2>
+        <p>The extension connects to the VerifyIQ API (self-hosted or our servers) to process verification requests. No
+            other third-party services are used.</p>
+
+        <h2>6. Contact</h2>
+        <p>For privacy questions, email: <a href="mailto:privacy@verifyiq.dev">privacy@verifyiq.dev</a></p>
+    </div>
+</body>
+
+</html>

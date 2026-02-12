@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VerifyIQ - URL Security Scanner & Dark Web Monitoring | Chrome Extension</title>
+    <meta name="description"
+        content="Professional URL trust verification, dark web leak monitoring, and supplier scoring. Chrome extension + API. Free tier available. Trusted by 10K+ users.">
+    <meta name="keywords"
+        content="url scanner, security checker, dark web monitoring, phishing detection, chrome extension, supplier verification">
+    <link rel="canonical" href="https://verifyiq.app">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="VerifyIQ - Enterprise Security for Everyone">
+    <meta property="og:description"
+        content="Scan URLs, monitor dark web leaks, verify suppliers. $7/mo for unlimited access.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://verifyiq.app">
+    <meta property="og:image" content="https://verifyiq.app/og-image.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="VerifyIQ - URL Security & Dark Web Monitoring">
+    <meta name="twitter:description" content="Professional security tools for everyone. $7/mo unlimited.">
+    <meta name="twitter:image" content="https://verifyiq.app/og-image.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel=\"stylesheet\" href=\"style.css\">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "VerifyIQ",
+      "applicationCategory": "SecurityApplication",
+      "operatingSystem": "Chrome",
+      "offers": {
+        "@type": "Offer",
+        "price": "7.00",
+        "priceCurrency": "USD",
+        "priceValidUntil": "2027-12-31"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "10000"
+      }
+    }
+    </script>
+</head>
+
+<body>
+    <!-- Animated background -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+    <div class="bg-glow bg-glow-3"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="container nav-inner">
+            <a href="#" class="nav-logo">
+                <div class="nav-logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                        <path d="M12 2L3 7V12C3 16.97 6.84 21.63 12 23C17.16 21.63 21 16.97 21 12V7L12 2Z"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <span>VerifyIQ</span>
+            </a>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#api">API</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#demo">Demo</a>
+            </div>
+            <a href="#pricing" class="btn btn-primary btn-sm">Join the Elite</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span>Now in public beta — Free tier available</span>
+            </div>
+            <h1 class="hero-title">
+                Verify Any URL in Seconds.<br>
+                <span class="gradient-text">Stay Safe Online.</span>
+            </h1>
+            <p class="hero-desc">
+                Professional security tools for everyone. Scan URLs, monitor dark web breaches, and verify suppliers—all
+                from your browser. Trusted by 10,000+ users.
+            </p>
+            <div class="hero-actions">
+                <a href="#demo" class="btn btn-primary btn-lg">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                        <polygon points="5 3 19 12 5 21 5 3" />
+                    </svg>
+                    Try Live Demo
+                </a>
+                <a href="#api" class="btn btn-ghost btn-lg">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                        <polyline points="16 18 22 12 16 6" />
+                        <polyline points="8 6 2 12 8 18" />
+                    </svg>
+                    View API Docs
+                </a>
+            </div>
+
+            <!-- Hero Stats -->
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-value">480M+</div>
+                    <div class="stat-label">Dark Web Records</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <div class="stat-value">14K+</div>
+                    <div class="stat-label">Active Threat Nodes</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <div class="stat-value">&lt;500ms</div>
+                    <div class="stat-label">Intel Retrieval</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <div class="stat-value">99.9%</div>
+                    <div class="stat-label">System Uptime</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Features</span>
+                <h2 class="section-title">Three Powerful Tools. One Platform.</h2>
+                <p class="section-desc">Everything you need to stay safe online. URL scanning, dark web monitoring, and
+                    supplier verification—built for speed and accuracy.</p>
+            </div>
+
+            <div class="feature-grid">
+                <!-- Dark Web Intel -->
+                <div class="feature-card feature-card-large">
+                    <div class="feature-icon" style="background: var(--gradient-security);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28"
+                            height="28">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M2 12h20" />
+                            <path
+                                d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+                        </svg>
+                    </div>
+                    <h3>Dark Web Monitoring</h3>
+                    <p>Search 480M+ leaked credentials. Get alerts if your data appears on the dark web. Monitor .onion
+                        sites and breach databases in real-time.</p>
+                    <div class="feature-checks">
+                        <span class="feature-check">✓ Leak Database Query</span>
+                        <span class="feature-check">✓ Onion Mirror Lookup</span>
+                        <span class="feature-check">✓ Tor Relay Checks</span>
+                        <span class="feature-check">✓ Threat Intel Feeds</span>
+                        <span class="feature-check">✓ Credential Monitoring</span>
+                    </div>
+                </div>
+
+                <!-- Forensic URL Scanner -->
+                <div class="feature-card feature-card-large">
+                    <div class="feature-icon" style="background: var(--gradient-primary);">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28"
+                            height="28">
+                            <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" />
+                            <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" />
+                        </svg>
+                    </div>
+                    <h3>URL Trust Scanner</h3>
+                    <p>Instant trust scoring for any link. Check domain age, SSL certificates, DNS records, and
+                        reputation databases before you click.</p>
+                    <div class="feature-checks">
+                        <span class="feature-check">✓ Trust IQ Scoring</span>
+                        <span class="feature-check">✓ SSL Chain Analysis</span>
+                        <span class="feature-check">✓ DNS Hygiene Check</span>
+                        <span class="feature-check">✓ Site Reputation</span>
+                        <span class="feature-check">✓ Whois Forensics</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Smaller Feature Cards -->
+            <div class="feature-grid-small">
+                <div class="feature-card-sm">
+                    <div class="feature-sm-icon">🔌</div>
+                    <h4>Chrome Extension</h4>
+                    <p>Verify emails and detect AI content directly in your browser. Right-click any text or email.</p>
+                </div>
+                <div class="feature-card-sm">
+                    <div class="feature-sm-icon">⚡</div>
+                    <h4>REST API</h4>
+                    <p>Simple JSON API with authentication, rate limiting, and comprehensive documentation.</p>
+                </div>
+                <div class="feature-card-sm">
+                    <div class="feature-sm-icon">📦</div>
+                    <h4>Bulk Processing</h4>
+                    <p>Verify up to 100 emails per request. Perfect for cleaning contact lists and CRM data.</p>
+                </div>
+                <div class="feature-card-sm">
+                    <div class="feature-sm-icon">🔒</div>
+                    <h4>Privacy First</h4>
+                    <p>No text or emails are stored. All analysis happens in real-time and results are returned
+                        immediately.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Section -->
+    <section class="api-section" id="api">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">API</span>
+                <h2 class="section-title">Simple API. Powerful Results.</h2>
+                <p class="section-desc">Integrate email verification and AI detection into your app in minutes. No SDK
+                    required.</p>
+            </div>
+
+            <div class="code-examples">
+                <div class="code-block">
+                    <div class="code-header">
+                        <div class="code-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span class="code-title">Email Verification</span>
+                        <span class="code-lang">curl</span>
+                    </div>
+                    <pre><code><span class="code-comment"># Verify an email address</span>
+<span class="code-keyword">curl</span> -X POST http://localhost:3000/api/verify-email \
+  -H <span class="code-string">"Content-Type: application/json"</span> \
+  -H <span class="code-string">"x-api-key: YOUR_API_KEY"</span> \
+  -d <span class="code-string">'{"email": "user@example.com"}'</span>
+
+<span class="code-comment"># Response</span>
+{
+  <span class="code-string">"email"</span>: <span class="code-string">"user@example.com"</span>,
+  <span class="code-string">"score"</span>: <span class="code-number">92</span>,
+  <span class="code-string">"verdict"</span>: <span class="code-string">"deliverable"</span>,
+  <span class="code-string">"risk_level"</span>: <span class="code-string">"low"</span>,
+  <span class="code-string">"checks"</span>: { ... },
+  <span class="code-string">"processing_time_ms"</span>: <span class="code-number">45</span>
+}</code></pre>
+                </div>
+
+                <div class="code-block">
+                    <div class="code-header">
+                        <div class="code-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span class="code-title">AI Content Detection</span>
+                        <span class="code-lang">curl</span>
+                    </div>
+                    <pre><code><span class="code-comment"># Detect AI-generated content</span>
+<span class="code-keyword">curl</span> -X POST http://localhost:3000/api/detect-ai \
+  -H <span class="code-string">"Content-Type: application/json"</span> \
+  -H <span class="code-string">"x-api-key: YOUR_API_KEY"</span> \
+  -d <span class="code-string">'{"text": "Your text to analyze..."}'</span>
+
+<span class="code-comment"># Response</span>
+{
+  <span class="code-string">"ai_probability"</span>: <span class="code-number">73.5</span>,
+  <span class="code-string">"verdict"</span>: <span class="code-string">"likely_ai"</span>,
+  <span class="code-string">"confidence"</span>: <span class="code-string">"medium"</span>,
+  <span class="code-string">"signals"</span>: [ ... ],
+  <span class="code-string">"processing_time_ms"</span>: <span class="code-number">12</span>
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Demo Section -->
+    <section class="demo-section" id="demo">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Live Demo</span>
+                <h2 class="section-title">Try It Right Now</h2>
+                <p class="section-desc">No signup required. Test both tools instantly.</p>
+            </div>
+
+            <div class="demo-tabs">
+                <button class="demo-tab active" data-demo="email">📧 Email Verification</button>
+                <button class="demo-tab" data-demo="ai">🤖 AI Detection</button>
+            </div>
+
+            <div class="demo-panel active" id="demoEmailPanel">
+                <div class="demo-input-row">
+                    <input type="email" id="demoEmailInput" placeholder="Enter an email address to verify..."
+                        class="demo-input">
+                    <button id="demoVerifyBtn" class="btn btn-primary">Verify</button>
+                </div>
+                <div class="demo-result" id="demoEmailResult"></div>
+            </div>
+
+            <div class="demo-panel" id="demoAiPanel">
+                <textarea id="demoAiInput" class="demo-textarea"
+                    placeholder="Paste text here to check if it's AI-generated (minimum 50 characters)..."
+                    rows="6"></textarea>
+                <button id="demoAnalyzeBtn" class="btn btn-purple" style="margin-top: 12px;">Analyze Text</button>
+                <div class="demo-result" id="demoAiResult"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Pricing</span>
+                <h2 class="section-title">Start Free. Scale When Ready.</h2>
+                <p class="section-desc">No credit card required. Upgrade when you need more requests.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Free -->
+                <div class="pricing-card">
+                    <div class="pricing-tier">Free</div>
+                    <div class="pricing-price">$0<span>/mo</span></div>
+                    <div class="pricing-desc">Perfect for testing and personal projects</div>
+                    <ul class="pricing-features">
+                        <li>50 email verifications/day</li>
+                        <li>10 AI detections/day</li>
+                        <li>Chrome extension access</li>
+                        <li>Single email verification</li>
+                        <li>Community support</li>
+                    </ul>
+                    <button class="btn btn-ghost btn-block" id="getFreeKey">Get Free Key</button>
+                </div>
+
+                <!-- Pro -->
+                <div class="pricing-card pricing-card-featured">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-tier">Professional</div>
+                    <div class="pricing-price">$7<span>/mo</span></div>
+                    <div class="pricing-desc">Full access to all security tools and monitoring</div>
+                    <ul class="pricing-features">
+                        <li>Unlimited URL scans</li>
+                        <li>Unlimited dark web searches</li>
+                        <li>Supplier trust scoring</li>
+                        <li>Social engagement auditing</li>
+                        <li>Bulk scanning (50+ URLs)</li>
+                        <li>Custom themes (Light/Dark/Auto)</li>
+                        <li>Priority support</li>
+                        <li>API access</li>
+                        <li>CSV export</li>
+                    </ul>
+                    <button class="btn btn-primary btn-block">Get Pro Access</button>
+                    <p style="font-size: 10px; color: var(--text-muted); margin-top: 12px; text-align: center;">Save
+                        $290/mo vs enterprise tools • 14-day money-back guarantee</p>
+                </div>
+
+                <!-- Business -->
+                <div class="pricing-card">
+                    <div class="pricing-tier">Business</div>
+                    <div class="pricing-price">$29<span>/mo</span></div>
+                    <div class="pricing-desc">For apps and high-volume use</div>
+                    <ul class="pricing-features">
+                        <li>10,000 email verifications/day</li>
+                        <li>1,000 AI detections/day</li>
+                        <li>Chrome extension access</li>
+                        <li>Bulk verification (up to 100)</li>
+                        <li>Dedicated support</li>
+                        <li>Custom integrations</li>
+                        <li>SLA guarantee</li>
+                    </ul>
+                    <button class="btn btn-ghost btn-block">Get Business Key</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <a class="nav-logo">
+                        <div class="nav-logo-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M12 2L3 7V12C3 16.97 6.84 21.63 12 23C17.16 21.63 21 16.97 21 12V7L12 2Z"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <span>VerifyIQ</span>
+                    </a>
+                    <p>Email verification & AI content detection for developers.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Product</h4>
+                        <a href="#features">Features</a>
+                        <a href="#api">API Docs</a>
+                        <a href="#pricing">Pricing</a>
+                        <a href="#demo">Live Demo</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Resources</h4>
+                        <a href="/api/docs">API Reference</a>
+                        <a href="#">Chrome Extension</a>
+                        <a href="#">GitHub</a>
+                        <a href="#">Status Page</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 VerifyIQ. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const API_URL = window.location.origin;
+
+        // Demo tab switching
+        document.querySelectorAll('.demo-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.demo-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById('demoEmailPanel').classList.toggle('active', tab.dataset.demo === 'email');
+                document.getElementById('demoAiPanel').classList.toggle('active', tab.dataset.demo === 'ai');
+            });
+        });
+
+        // Email demo
+        document.getElementById('demoVerifyBtn').addEventListener('click', async () => {
+            const email = document.getElementById('demoEmailInput').value.trim();
+            if (!email) return;
+            const resultEl = document.getElementById('demoEmailResult');
+            resultEl.innerHTML = '<div class="demo-loading">Verifying...</div>';
+            try {
+                const res = await fetch(`${API_URL}/api/verify-email`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-Source': 'extension' },
+                    body: JSON.stringify({ email }),
+                });
+                const data = await res.json();
+                const color = data.score >= 80 ? '#22c55e' : data.score >= 60 ? '#f59e0b' : '#ef4444';
+                resultEl.innerHTML = `
+          <div class="demo-result-card">
+            <div class="demo-score" style="color: ${color}">${data.score}<span>/100</span></div>
+            <div class="demo-verdict" style="color: ${color}">${data.verdict.toUpperCase()}</div>
+            <div class="demo-details">
+              <div>📧 ${data.email}</div>
+              <div>⚡ Risk: ${data.risk_level}</div>
+              <div>⏱️ ${data.processing_time_ms}ms</div>
+            </div>
+            ${data.risk_factors?.length ? `<div class="demo-risks">${data.risk_factors.map(f => `<div>⚠️ ${f}</div>`).join('')}</div>` : ''}
+            ${data.suggestions?.length ? `<div class="demo-suggestions">${data.suggestions.map(s => `<div>💡 ${s}</div>`).join('')}</div>` : ''}
+          </div>
+        `;
+            } catch (err) {
+                resultEl.innerHTML = `<div class="demo-error">❌ Could not connect to API. Make sure the server is running.</div>`;
+            }
+        });
+
+        document.getElementById('demoEmailInput').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') document.getElementById('demoVerifyBtn').click();
+        });
+
+        // AI demo
+        document.getElementById('demoAnalyzeBtn').addEventListener('click', async () => {
+            const text = document.getElementById('demoAiInput').value.trim();
+            if (text.length < 50) {
+                document.getElementById('demoAiResult').innerHTML = '<div class="demo-error">⚠️ Please enter at least 50 characters.</div>';
+                return;
+            }
+            const resultEl = document.getElementById('demoAiResult');
+            resultEl.innerHTML = '<div class="demo-loading">Analyzing...</div>';
+            try {
+                const res = await fetch(`${API_URL}/api/detect-ai`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-Source': 'extension' },
+                    body: JSON.stringify({ text }),
+                });
+                const data = await res.json();
+                const prob = data.ai_probability;
+                const color = prob >= 55 ? '#ef4444' : prob >= 40 ? '#f59e0b' : '#22c55e';
+                const label = prob >= 55 ? 'AI GENERATED' : prob >= 40 ? 'MIXED' : 'LIKELY HUMAN';
+                resultEl.innerHTML = `
+          <div class="demo-result-card">
+            <div class="demo-score" style="color: ${color}">${Math.round(prob)}%</div>
+            <div class="demo-verdict" style="color: ${color}">${label}</div>
+            <div class="demo-details">
+              <div>📝 ${data.word_count} words · ${data.sentence_count} sentences</div>
+              <div>🎯 Confidence: ${data.confidence}</div>
+              <div>⏱️ ${data.processing_time_ms}ms</div>
+            </div>
+            <div class="demo-signals">
+              <h4>Signal Breakdown</h4>
+              ${data.signals?.slice(0, 6).map(s => {
+                    const sc = s.score > 55 ? '#ef4444' : s.score < 40 ? '#22c55e' : '#f59e0b';
+                    return `<div class="demo-signal-row">
+                  <span>${s.name}</span>
+                  <span style="color: ${sc}; font-weight: 700;">${s.score}%</span>
+                </div>`;
+                }).join('') || ''}
+            </div>
+          </div>
+        `;
+            } catch (err) {
+                resultEl.innerHTML = `<div class="demo-error">❌ Could not connect to API. Make sure the server is running.</div>`;
+            }
+        });
+
+        // Generate free key
+        document.getElementById('getFreeKey').addEventListener('click', async () => {
+            try {
+                const res = await fetch(`${API_URL}/api/keys/generate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name: 'Free User', tier: 'free' }),
+                });
+                const data = await res.json();
+                const btn = document.getElementById('getFreeKey');
+                btn.textContent = data.api_key;
+                btn.style.fontSize = '10px';
+                btn.style.fontFamily = 'monospace';
+                btn.style.wordBreak = 'break-all';
+                btn.style.background = 'rgba(34, 197, 94, 0.1)';
+                btn.style.borderColor = 'rgba(34, 197, 94, 0.3)';
+                btn.style.color = '#22c55e';
+
+                // Copy to clipboard
+                navigator.clipboard?.writeText(data.api_key);
+            } catch (err) {
+                document.getElementById('getFreeKey').textContent = 'Server not running';
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                const id = a.getAttribute('href').substring(1);
+                const el = document.getElementById(id);
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Nav scroll effect
+        window.addEventListener('scroll', () => {
+            document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 50);
+        });
+    </script>
+</body>
+
+</html>
