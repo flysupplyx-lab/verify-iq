@@ -1,0 +1,22 @@
+{
+  "name": "verify-iq-infra",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "get": "cdktf get",
+    "synth": "cdktf synth",
+    "diff": "cdktf diff",
+    "deploy": "cdktf deploy",
+    "destroy": "cdktf destroy"
+  },
+  "dependencies": {
+    "cdktf": "^0.21.0",
+    "constructs": "^10.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "ts-node": "^10.9.2",
+    "@types/node": "^20.11.30"
+  }
+}
