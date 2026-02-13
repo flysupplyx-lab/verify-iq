@@ -1,0 +1,15 @@
+{
+  "language": "typescript",
+  "main": "main.ts",
+  "projectId": "verify-iq-infra",
+  "terraformProviders": [
+    {
+      "name": "aws",
+      "source": "hashicorp/aws",
+      "version": "~> 5.0"
+    }
+  ],
+  "terraformModules": [],
+  "context": {},
+  "codeMachineImage": "ghcr.io/hashicorp/terraform-cdk:latest"
+}
