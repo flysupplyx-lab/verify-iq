@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -7,6 +8,12 @@ const path = require('path');
 const emailVerifier = require('./src/services/emailVerifier');
 const aiDetector = require('./src/services/aiDetector');
 const urlScanner = require('./src/services/urlScanner');
+const socialAnalyzer = require('./src/services/socialAnalyzer');
+const dropshipDetector = require('./src/services/dropshipDetector');
+const rugPullAnalyzer = require('./src/services/rugPullAnalyzer');
+const deepfakeAnalyzer = require('./src/services/deepfakeAnalyzer');
+const adTransparencyChecker = require('./src/services/adTransparencyChecker');
+const aiAgent = require('./src/services/aiAgent');
 const { apiKeyAuth, generateKey, DEMO_KEY } = require('./src/middleware/apiKey');
 
 const app = express();
@@ -37,9 +44,14 @@ app.use(express.static(path.join(__dirname, 'landing')));
 app.get('/api/health', (req, res) => {
     res.json({
         status: 'ok',
-        service: 'VerifyIQ API',
-        version: '2.0.0',
-        endpoints: ['/api/scan-url', '/api/darkweb-scan', '/api/supplier-score', '/api/audit-engagement', '/api/trading-shield', '/api/verify-email', '/api/detect-ai'],
+        service: 'Verify.IQ API',
+        version: '3.0.0',
+        endpoints: [
+            '/api/scan-url', '/api/darkweb-scan', '/api/supplier-score',
+            '/api/audit-engagement', '/api/trading-shield', '/api/verify-email',
+            '/api/detect-ai', '/api/social-authenticity', '/api/dropship-check',
+            '/api/rug-pull-check', '/api/deepfake-check', '/api/ad-transparency'
+        ],
         timestamp: new Date().toISOString(),
     });
 });
@@ -47,7 +59,7 @@ app.get('/api/health', (req, res) => {
 // API Documentation
 app.get('/api/docs', (req, res) => {
     res.json({
-        name: 'VerifyIQ API',
+        name: 'Verify.IQ API',
         version: '2.0.0',
         description: 'URL trust verification, supplier scoring, social engagement auditing, and trading protection',
         base_url: `http://localhost:${PORT}/api`,
@@ -753,6 +765,143 @@ app.post('/api/keys/generate', (req, res) => {
 });
 
 // ========================================
+// SOCIAL MEDIA AUTHENTICITY (Pro Tier)
+// ========================================
+
+app.post('/api/social-authenticity', apiKeyAuth('social_auth'), (req, res) => {
+    try {
+        const profileData = req.body;
+        if (!profileData || (!profileData.followers && profileData.followers !== 0)) {
+            return res.status(400).json({
+                error: 'Missing required fields',
+                message: 'Provide profile data: followers, following, avgLikes, comments, bio',
+                example: { followers: 100000, following: 50, avgLikes: 30, comments: [{ text: 'Nice!', username: 'user123' }], bio: 'Link in bio' }
+            });
+        }
+        const result = socialAnalyzer.calculateIntegrityScore(profileData);
+        res.json(result);
+    } catch (error) {
+        console.error('Social authenticity error:', error);
+        res.status(500).json({ error: 'Internal server error', message: error.message });
+    }
+});
+
+// ========================================
+// DROPSHIP DETECTOR (Pro Tier)
+// ========================================
+
+app.post('/api/dropship-check', apiKeyAuth('dropship_check'), (req, res) => {
+    try {
+        const { product_title, price, image_url, store_url, currency } = req.body;
+        if (!product_title) {
+            return res.status(400).json({
+                error: 'Missing required field',
+                message: 'Provide at least a "product_title"',
+                example: { product_title: 'Minimalist Watch Gold', price: 39.99, store_url: 'https://example.myshopify.com' }
+            });
+        }
+        const result = dropshipDetector.analyze({ product_title, price: price || 0, image_url, store_url, currency });
+        res.json(result);
+    } catch (error) {
+        console.error('Dropship check error:', error);
+        res.status(500).json({ error: 'Internal server error', message: error.message });
+    }
+});
+
+// ========================================
+// AI AGENT ANALYSIS (Pro Tier)
+// ========================================
+
+app.post('/api/agent-scan', apiKeyAuth('agent_scan'), async (req, res) => {
+    try {
+        const { context, data } = req.body;
+
+        if (!context || !data) {
+            return res.status(400).json({ error: 'Missing context or data' });
+        }
+
+        // Initialize on first use if not ready
+        if (!aiAgent.initialized) await aiAgent.initialize();
+
+        const result = await aiAgent.analyzeContext(context, data);
+        res.json(result);
+    } catch (error) {
+        console.error('AI Agent Scan Error:', error);
+        res.status(500).json({ error: 'Internal Server Error', message: error.message });
+    }
+});
+
+// ========================================
+// RUG PULL / HONEYPOT SCANNER (Pro Tier)
+// ========================================
+
+app.post('/api/rug-pull-check', apiKeyAuth('rug_pull_check'), async (req, res) => {
+    try {
+        const { address, chain } = req.body;
+        if (!address) {
+            return res.status(400).json({
+                error: 'Missing required field',
+                message: 'Provide a contract "address"',
+                example: { address: '0x...', chain: 'ethereum' }
+            });
+        }
+        // Validate ETH address format
+        if (!/^0x[a-fA-F0-9]{40}$/.test(address)) {
+            return res.status(400).json({ error: 'Invalid address format', message: 'Expected Ethereum address (0x + 40 hex chars)' });
+        }
+        const result = await rugPullAnalyzer.analyze(address, chain || 'ethereum');
+        res.json(result);
+    } catch (error) {
+        console.error('Rug pull check error:', error);
+        res.status(500).json({ error: 'Internal server error', message: error.message });
+    }
+});
+
+// ========================================
+// DEEPFAKE / AI FACE DETECTOR (Pro Tier)
+// ========================================
+
+app.post('/api/deepfake-check', apiKeyAuth('deepfake_check'), async (req, res) => {
+    try {
+        const { image_url, platform } = req.body;
+        if (!image_url) {
+            return res.status(400).json({
+                error: 'Missing required field',
+                message: 'Provide an "image_url"',
+                example: { image_url: 'https://example.com/pfp.jpg', platform: 'instagram' }
+            });
+        }
+        const result = await deepfakeAnalyzer.analyze(image_url, platform || 'unknown');
+        res.json(result);
+    } catch (error) {
+        console.error('Deepfake check error:', error);
+        res.status(500).json({ error: 'Internal server error', message: error.message });
+    }
+});
+
+// ========================================
+// AD TRANSPARENCY CHECKER (Pro Tier)
+// ========================================
+
+app.post('/api/ad-transparency', apiKeyAuth('ad_transparency'), async (req, res) => {
+    try {
+        const { username, platform, bio, followers } = req.body;
+        if (!username) {
+            return res.status(400).json({
+                error: 'Missing required field',
+                message: 'Provide a "username"',
+                example: { username: 'garyvee', platform: 'instagram' }
+            });
+        }
+        const result = await adTransparencyChecker.analyze(username, platform || 'unknown', bio || '', followers || 0);
+        res.json(result);
+    } catch (error) {
+        console.error('Ad transparency error:', error);
+        res.status(500).json({ error: 'Internal server error', message: error.message });
+    }
+});
+
+// ========================================
 // HELPERS
 // ========================================
 
@@ -783,7 +932,7 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
     console.log(`
 ╔══════════════════════════════════════════════╗
-║         VerifyIQ V2 API Server               ║
+║         Verify.IQ V2 API Server               ║
 ╠══════════════════════════════════════════════╣
 ║  🚀 Running on http://localhost:${PORT}          ║
 ║  📖 API Docs: http://localhost:${PORT}/api/docs  ║
@@ -795,6 +944,11 @@ app.listen(PORT, () => {
 ║  POST /api/audit-engagement (pro)            ║
 ║  POST /api/trading-shield   (pro)            ║
 ║  POST /api/bulk-scan        (pro)            ║
+║  POST /api/social-authenticity (pro)         ║
+║  POST /api/dropship-check   (pro)            ║
+║  POST /api/rug-pull-check   (pro)            ║
+║  POST /api/deepfake-check   (pro)            ║
+║  POST /api/ad-transparency  (pro)            ║
 ╚══════════════════════════════════════════════╝
   `);
 });

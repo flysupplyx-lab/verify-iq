@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify.IQ - Advanced URL Trust Intelligence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style-premium.css">
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-gradient"></div>
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+        <div class="container nav-inner">
+            <a href="#" class="nav-logo">
+                <div class="nav-logo-icon"
+                    style="background: none; box-shadow: none; border: 1px solid rgba(255,255,255,0.1);">
+                    <svg viewBox="0 0 40 40" fill="none" style="width: 28px; height: 28px;">
+                        <defs>
+                            <linearGradient id="landingLogoGrad" x1="0" y1="0" x2="40" y2="40"
+                                gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#30D158" />
+                                <stop offset="100%" stop-color="#0A84FF" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M20 2L36 10V18C36 28 29 35 20 38C11 35 4 28 4 18V10L20 2Z"
+                            stroke="url(#landingLogoGrad)" stroke-width="3" stroke-linecap="round"
+                            stroke-linejoin="round" fill="rgba(255,255,255,0.05)" />
+                        <path d="M12 18L18 24L28 12" stroke="white" stroke-width="3" stroke-linecap="round"
+                            stroke-linejoin="round" style="filter: drop-shadow(0 0 5px rgba(48, 209, 88, 0.5));" />
+                    </svg>
+                </div>
+                <span>Verify.IQ</span>
+            </a>
+            <div class="nav-links">
+                <a href="#scanner">Scanner</a>
+                <a href="#features">Features</a>
+                <a href="#api">API</a>
+                <a href="#pricing">Pricing</a>
+            </div>
+            <a href="#pricing" class="btn btn-primary btn-sm">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Trust Score Gauge -->
+    <section class="hero" id="scanner">
+        <div class="container">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span>Enterprise-Grade Security Intelligence</span>
+            </div>
+
+            <h1 class="hero-title">
+                Real-Time URL Trust Analysis
+            </h1>
+            <p class="hero-subtitle">
+                Advanced threat detection powered by 480M+ dark web records and AI-driven risk scoring
+            </p>
+
+            <!-- Trust Score Gauge (Hero Element) -->
+            <div class="trust-score-container">
+                <div class="trust-gauge">
+                    <svg class="gauge-svg" viewBox="0 0 200 200">
+                        <defs>
+                            <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#10B981;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+                            </linearGradient>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="4" result="coloredBlur" />
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur" />
+                                    <feMergeNode in="SourceGraphic" />
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <!-- Background Circle -->
+                        <circle class="gauge-bg" cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.05)"
+                            stroke-width="12" />
+                        <!-- Animated Progress Circle -->
+                        <circle class="gauge-progress" cx="100" cy="100" r="85" fill="none" stroke="url(#gaugeGradient)"
+                            stroke-width="12" stroke-linecap="round" filter="url(#glow)"
+                            transform="rotate(-90 100 100)" />
+                    </svg>
+                    <div class="gauge-content">
+                        <div class="gauge-score" id="gaugeScore">0</div>
+                        <div class="gauge-label" id="gaugeLabel">Analyzing...</div>
+                    </div>
+                </div>
+
+                <!-- URL Input -->
+                <div class="url-input-container">
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" />
+                            <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" />
+                        </svg>
+                        <input type="url" id="urlInput" class="url-input"
+                            placeholder="Enter URL to verify (e.g., https://example.com)">
+                        <button id="scanBtn" class="btn btn-scan">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18"
+                                height="18">
+                                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                            Scan URL
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="results-panel" id="resultsPanel">
+                    <!-- Results will be injected here -->
+                </div>
+            </div>
+
+            <!-- Trust Metrics -->
+            <div class="trust-metrics">
+                <div class="metric">
+                    <div class="metric-icon safe">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div class="metric-value">480M+</div>
+                    <div class="metric-label">Threat Records</div>
+                </div>
+                <div class="metric-divider"></div>
+                <div class="metric">
+                    <div class="metric-icon warning">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 6v6m0 4h.01" />
+                        </svg>
+                    </div>
+                    <div class="metric-value">&lt;500ms</div>
+                    <div class="metric-label">Analysis Time</div>
+                </div>
+                <div class="metric-divider"></div>
+                <div class="metric">
+                    <div class="metric-icon danger">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
+                    <div class="metric-value">99.9%</div>
+                    <div class="metric-label">Accuracy Rate</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Security Intelligence</span>
+                <h2 class="section-title">Multi-Layer Threat Detection</h2>
+                <p class="section-desc">Advanced forensic analysis combining dark web intelligence, SSL verification,
+                    and behavioral pattern recognition</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon safe">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10" />
+                            <path
+                                d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
+                        </svg>
+                    </div>
+                    <h3>Dark Web Monitoring</h3>
+                    <p>Real-time scanning of 480M+ leaked credentials across .onion sites and breach databases</p>
+                    <div class="feature-tags">
+                        <span>Credential Leaks</span>
+                        <span>Tor Network</span>
+                        <span>Breach Intel</span>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon warning">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                            <path d="M7 11V7a5 5 0 0110 0v4" />
+                        </svg>
+                    </div>
+                    <h3>SSL Chain Analysis</h3>
+                    <p>Deep certificate validation with issuer verification and expiration monitoring</p>
+                    <div class="feature-tags">
+                        <span>Certificate Validation</span>
+                        <span>Chain Trust</span>
+                        <span>Expiry Alerts</span>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon danger">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            <path d="M12 8v4m0 4h.01" />
+                        </svg>
+                    </div>
+                    <h3>Threat Intelligence</h3>
+                    <p>AI-powered risk scoring using behavioral patterns and reputation databases</p>
+                    <div class="feature-tags">
+                        <span>AI Detection</span>
+                        <span>Risk Scoring</span>
+                        <span>Pattern Analysis</span>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon safe">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                        </svg>
+                    </div>
+                    <h3>Real-Time Monitoring</h3>
+                    <p>Continuous surveillance with instant alerts for domain changes and threats</p>
+                    <div class="feature-tags">
+                        <span>Live Updates</span>
+                        <span>Instant Alerts</span>
+                        <span>24/7 Scanning</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Section -->
+    <section class="api-section" id="api">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Developer API</span>
+                <h2 class="section-title">Enterprise-Grade REST API</h2>
+                <p class="section-desc">Integrate advanced threat intelligence into your applications with our simple,
+                    powerful API</p>
+            </div>
+
+            <div class="api-demo">
+                <div class="code-window">
+                    <div class="code-header">
+                        <div class="code-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <span class="code-title">POST /api/scan-url</span>
+                    </div>
+                    <pre class="code-content"><code><span class="code-comment"># Scan URL for threats</span>
+<span class="code-keyword">curl</span> -X POST https://api.verifyiq.app/v1/scan-url \
+  -H <span class="code-string">"Authorization: Bearer YOUR_API_KEY"</span> \
+  -H <span class="code-string">"Content-Type: application/json"</span> \
+  -d <span class="code-string">'{
+    "url": "https://example.com",
+    "deep_scan": true
+  }'</span>
+
+<span class="code-comment"># Response</span>
+{
+  <span class="code-string">"trust_score"</span>: <span class="code-number">94</span>,
+  <span class="code-string">"verdict"</span>: <span class="code-string">"safe"</span>,
+  <span class="code-string">"risk_level"</span>: <span class="code-string">"low"</span>,
+  <span class="code-string">"ssl_valid"</span>: <span class="code-keyword">true</span>,
+  <span class="code-string">"dark_web_hits"</span>: <span class="code-number">0</span>,
+  <span class="code-string">"processing_time_ms"</span>: <span class="code-number">342</span>
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Pricing</span>
+                <h2 class="section-title">Enterprise Security, Accessible Pricing</h2>
+                <p class="section-desc">Start free, scale as you grow. No hidden fees.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Free</h3>
+                        <div class="pricing-price">
+                            <span class="price-amount">$0</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            50 URL scans/day
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Basic threat detection
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Community support
+                        </li>
+                    </ul>
+                    <button class="btn btn-ghost btn-block">Get Started</button>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">Most Popular</div>
+                    <div class="pricing-header">
+                        <h3>Professional</h3>
+                        <div class="pricing-price">
+                            <span class="price-amount">$7</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Unlimited URL scans
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Dark web monitoring
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            API access
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Priority support
+                        </li>
+                    </ul>
+                    <button class="btn btn-primary btn-block">Start Free Trial</button>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Enterprise</h3>
+                        <div class="pricing-price">
+                            <span class="price-amount">$299</span>
+                            <span class="price-period">/month</span>
+                        </div>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Unlimited everything
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Custom integrations
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            Dedicated support
+                        </li>
+                        <li>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                            SLA guarantee
+                        </li>
+                    </ul>
+                    <button class="btn btn-ghost btn-block">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="nav-logo">
+                        <div class="nav-logo-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M9 12L11 14L15 10" />
+                                <path d="M12 2L3 7V12C3 16.97 6.84 21.63 12 23C17.16 21.63 21 16.97 21 12V7L12 2Z" />
+                            </svg>
+                        </div>
+                        <span>Verify.IQ</span>
+                    </div>
+                    <p>Enterprise-grade URL security intelligence for everyone.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Product</h4>
+                        <a href="#scanner">Scanner</a>
+                        <a href="#features">Features</a>
+                        <a href="#api">API</a>
+                        <a href="#pricing">Pricing</a>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Resources</h4>
+                        <a href="#">Documentation</a>
+                        <a href="#">API Reference</a>
+                        <a href="#">Status</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Verify.IQ. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app-premium.js"></script>
+</body>
+
+</html>

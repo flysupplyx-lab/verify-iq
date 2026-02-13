@@ -314,4 +314,4 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-console.log('✅ VerifyIQ Advanced Landing Page Loaded');
+console.log('✅ Verify.IQ Advanced Landing Page Loaded');

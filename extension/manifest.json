@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "VerifyIQ — Trust Verification Platform",
-    "version": "2.0.0",
-    "description": "Scan URLs, verify suppliers, audit social engagement, and detect trading scams — all in one click. Free URL scanning, Pro features for $7/mo.",
+    "name": "Verify.IQ — Trust Verification Platform",
+    "version": "3.0.0",
+    "description": "Full OSINT trust verification: URL scanning, social profiling, dropship detection, crypto honeypot scanning, deepfake detection, and ad transparency — all in one click.",
     "homepage_url": "https://verifyiq.dev",
     "permissions": [
         "activeTab",
@@ -12,11 +12,13 @@
     ],
     "host_permissions": [
         "http://localhost:3000/*",
-        "https://*/*"
+        "https://*/*",
+        "https://api.honeypot.is/*",
+        "https://api.sightengine.com/*"
     ],
     "action": {
         "default_popup": "popup.html",
-        "default_title": "VerifyIQ — Scan & Verify",
+        "default_title": "Verify.IQ — Scan & Verify",
         "default_icon": {
             "16": "icons/icon16.png",
             "48": "icons/icon48.png",

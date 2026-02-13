@@ -1,5 +1,5 @@
 /**
- * VerifyIQ V2 — URL Scanner Service
+ * Verify.IQ V2 — URL Scanner Service
  * Performs comprehensive URL analysis:
  * - Domain WHOIS / age lookup
  * - SSL certificate validation
@@ -492,7 +492,7 @@ function fetchJSON(url, options = {}) {
             method: options.method || 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'User-Agent': 'VerifyIQ/2.0',
+                'User-Agent': 'Verify.IQ/2.0',
                 ...(options.headers || {}),
             },
             timeout: 8000,

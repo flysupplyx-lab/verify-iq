@@ -1,5 +1,5 @@
-// VerifyIQ V2 — Background Service Worker
-// Handles context menus and URL scanning
+// Verify.IQ V3 — Background Service Worker
+// Handles context menus, URL scanning, and all module routing
 
 const DEFAULT_API_URL = 'http://localhost:3000';
 
@@ -26,13 +26,13 @@ async function getApiKey() {
 chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({
         id: 'verifyiq-scan-link',
-        title: 'Scan with VerifyIQ',
+        title: 'Scan with Verify.IQ',
         contexts: ['link'],
     });
 
     chrome.contextMenus.create({
         id: 'verifyiq-scan-page',
-        title: 'Scan this page with VerifyIQ',
+        title: 'Scan this page with Verify.IQ',
         contexts: ['page'],
     });
 
@@ -46,6 +46,27 @@ chrome.runtime.onInstalled.addListener(() => {
         id: 'verifyiq-verify-email',
         title: 'Verify email: "%s"',
         contexts: ['selection'],
+    });
+
+    // Module B: Dropship check on images
+    chrome.contextMenus.create({
+        id: 'verifyiq-dropship-check',
+        title: '🔍 Check if dropshipped',
+        contexts: ['image'],
+    });
+
+    // Module C: Rug pull check on selected text (contract addresses)
+    chrome.contextMenus.create({
+        id: 'verifyiq-rug-pull-check',
+        title: '🔴 Check contract: "%s"',
+        contexts: ['selection'],
+    });
+
+    // Module D: Deepfake check on images
+    chrome.contextMenus.create({
+        id: 'verifyiq-deepfake-check',
+        title: '🤖 Check if AI-generated face',
+        contexts: ['image'],
     });
 });
 
@@ -123,8 +144,74 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
             const result = await response.json();
             await sendToTab(tab.id, { type: 'EMAIL_RESULT', data: result });
         }
+
+        // Module B: Dropship check (from image context menu)
+        else if (info.menuItemId === 'verifyiq-dropship-check') {
+            await sendToTab(tab.id, { type: 'SCAN_LOADING', url: 'Checking product source...' });
+
+            // Ask content script for product data
+            const productResp = await chrome.tabs.sendMessage(tab.id, { type: 'CHECK_DROPSHIP' });
+
+            if (productResp?.success && productResp.product) {
+                const response = await fetch(`${apiUrl}/api/dropship-check`, {
+                    method: 'POST',
+                    headers,
+                    body: JSON.stringify({
+                        product_title: productResp.product.title,
+                        price: productResp.product.price,
+                        image_url: info.srcUrl || productResp.product.imageUrl,
+                        store_url: productResp.product.storeUrl,
+                        currency: productResp.product.currency
+                    }),
+                });
+
+                const result = await response.json();
+                await sendToTab(tab.id, { type: 'DROPSHIP_RESULT', data: result });
+            } else {
+                await sendToTab(tab.id, { type: 'ERROR', error: 'Could not extract product data. Make sure you are on a product page.' });
+            }
+        }
+
+        // Module C: Rug pull check (from selected text)
+        else if (info.menuItemId === 'verifyiq-rug-pull-check') {
+            const text = info.selectionText?.trim();
+            const ethMatch = text?.match(/0x[a-fA-F0-9]{40}/);
+
+            if (!ethMatch) {
+                await sendToTab(tab.id, { type: 'ERROR', error: 'No valid contract address found in selection' });
+                return;
+            }
+
+            await sendToTab(tab.id, { type: 'SCAN_LOADING', url: `Checking contract ${ethMatch[0].slice(0, 10)}...` });
+
+            const response = await fetch(`${apiUrl}/api/rug-pull-check`, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify({ address: ethMatch[0], chain: 'ethereum' }),
+            });
+
+            const result = await response.json();
+            await sendToTab(tab.id, { type: 'RUG_PULL_RESULT', data: result });
+        }
+
+        // Module D: Deepfake check (from image context menu)
+        else if (info.menuItemId === 'verifyiq-deepfake-check') {
+            await sendToTab(tab.id, { type: 'SCAN_LOADING', url: 'Analyzing face for AI patterns...' });
+
+            const response = await fetch(`${apiUrl}/api/deepfake-check`, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify({
+                    image_url: info.srcUrl,
+                    platform: detectPlatformFromUrl(tab.url)
+                }),
+            });
+
+            const result = await response.json();
+            await sendToTab(tab.id, { type: 'DEEPFAKE_RESULT', data: result });
+        }
     } catch (error) {
-        console.error('VerifyIQ context menu error:', error);
+        console.error('Verify.IQ context menu error:', error);
         await sendToTab(tab.id, {
             type: 'ERROR',
             error: `Connection failed. Is the API running at ${apiUrl}?`,
@@ -132,7 +219,69 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
     }
 });
 
-// ===== MESSAGE HANDLER =====
+// ===== MESSAGE HANDLER FROM CONTENT SCRIPTS =====
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === 'DROPSHIP_CHECK') {
+        // Triggered by floating badge click in content script
+        handleDropshipCheck(message.data, sender.tab?.id);
+    }
+    if (message.type === 'RUG_PULL_AUTO_CHECK') {
+        // Auto-triggered by content script on crypto pages
+        handleRugPullAutoCheck(message.address, message.chain, sender.tab?.id);
+    }
+});
+
+async function handleDropshipCheck(productData, tabId) {
+    if (!tabId) return;
+    const apiUrl = await getApiUrl();
+    const apiKey = await getApiKey();
+    const headers = { 'Content-Type': 'application/json', 'X-Source': 'extension' };
+    if (apiKey) headers['X-Api-Key'] = apiKey;
+
+    try {
+        const response = await fetch(`${apiUrl}/api/dropship-check`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify(productData),
+        });
+        const result = await response.json();
+        await sendToTab(tabId, { type: 'DROPSHIP_RESULT', data: result });
+    } catch (e) {
+        await sendToTab(tabId, { type: 'ERROR', error: 'Dropship check failed' });
+    }
+}
+
+async function handleRugPullAutoCheck(address, chain, tabId) {
+    if (!tabId) return;
+    const apiUrl = await getApiUrl();
+    const apiKey = await getApiKey();
+    const headers = { 'Content-Type': 'application/json', 'X-Source': 'extension' };
+    if (apiKey) headers['X-Api-Key'] = apiKey;
+
+    try {
+        const response = await fetch(`${apiUrl}/api/rug-pull-check`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ address, chain: chain || 'ethereum' }),
+        });
+        const result = await response.json();
+        await sendToTab(tabId, { type: 'RUG_PULL_RESULT', data: result });
+    } catch (e) {
+        console.warn('Auto rug pull check failed:', e.message);
+    }
+}
+
+// ===== HELPERS =====
+function detectPlatformFromUrl(url) {
+    if (!url) return 'unknown';
+    const u = url.toLowerCase();
+    if (u.includes('instagram.com')) return 'instagram';
+    if (u.includes('tiktok.com')) return 'tiktok';
+    if (u.includes('twitter.com') || u.includes('x.com')) return 'x';
+    if (u.includes('facebook.com')) return 'facebook';
+    return 'unknown';
+}
+
 async function sendToTab(tabId, message) {
     try {
         await chrome.tabs.sendMessage(tabId, message);
